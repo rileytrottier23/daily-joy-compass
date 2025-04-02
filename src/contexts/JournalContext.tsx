@@ -49,7 +49,7 @@ export const JournalProvider: React.FC<{ children: React.ReactNode }> = ({ child
           id: entry.id,
           date: entry.entry_date,
           content: entry.content || '',
-          happinessRating: entry.happiness_rating,
+          happinessRating: entry.happiness_rating || 5,
           createdAt: entry.created_at
         }));
         setEntries(transformedEntries);
@@ -80,20 +80,19 @@ export const JournalProvider: React.FC<{ children: React.ReactNode }> = ({ child
           content: entry.content,
           happiness_rating: entry.happinessRating
         }])
-        .select()
-        .single();
+        .select();
 
       if (error) {
         throw error;
       }
 
-      if (data) {
+      if (data && data.length > 0) {
         const newEntry: JournalEntry = {
-          id: data.id,
-          date: data.entry_date,
-          content: data.content || '',
-          happinessRating: data.happiness_rating,
-          createdAt: data.created_at
+          id: data[0].id,
+          date: data[0].entry_date,
+          content: data[0].content || '',
+          happinessRating: data[0].happiness_rating || 5,
+          createdAt: data[0].created_at
         };
         setEntries(prev => [newEntry, ...prev]);
       }

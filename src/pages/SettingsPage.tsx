@@ -42,7 +42,7 @@ const SettingsPage: React.FC = () => {
               {user?.email?.[0].toUpperCase() || 'U'}
             </div>
             <div>
-              <h2 className="font-semibold text-lg">{user?.name || 'User'}</h2>
+              <h2 className="font-semibold text-lg">{user?.email?.split('@')[0] || 'User'}</h2>
               <p className="text-gray-600">{user?.email}</p>
             </div>
           </div>
