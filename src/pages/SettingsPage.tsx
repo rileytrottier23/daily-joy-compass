@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import BottomNav from '../components/BottomNav';
 import { Button } from '@/components/ui/button';
@@ -12,11 +12,14 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { useNavigate } from 'react-router-dom';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import PrivacySecurityPolicy from '@/components/PrivacySecurityPolicy';
 
 const SettingsPage: React.FC = () => {
   const { user, logout } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
+  const [openPrivacySheet, setOpenPrivacySheet] = useState(false);
 
   const handleLogout = () => {
     logout();
@@ -71,13 +74,20 @@ const SettingsPage: React.FC = () => {
                 <span className="text-gray-400">›</span>
               </div>
               
-              <div className="p-4 flex items-center justify-between">
-                <div className="flex items-center">
-                  <Shield className="h-5 w-5 mr-3 text-gray-500" />
-                  <span>Privacy & Security</span>
-                </div>
-                <span className="text-gray-400">›</span>
-              </div>
+              <Sheet open={openPrivacySheet} onOpenChange={setOpenPrivacySheet}>
+                <SheetTrigger asChild>
+                  <div className="p-4 flex items-center justify-between cursor-pointer hover:bg-gray-50">
+                    <div className="flex items-center">
+                      <Shield className="h-5 w-5 mr-3 text-gray-500" />
+                      <span>Privacy & Security</span>
+                    </div>
+                    <span className="text-gray-400">›</span>
+                  </div>
+                </SheetTrigger>
+                <SheetContent className="w-full sm:max-w-md overflow-y-auto">
+                  <PrivacySecurityPolicy />
+                </SheetContent>
+              </Sheet>
             </div>
           </div>
 
