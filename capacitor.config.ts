@@ -17,14 +17,6 @@ const config: CapacitorConfig = {
       androidSplashResourceName: "splash",
       androidScaleType: "CENTER_CROP"
     }
-  },
-  android: {
-    buildOptions: {
-      keystorePath: "./android/app/my-release-key.keystore", // Replace with actual path
-      keystorePassword: "your-keystore-password", // Replace with actual password
-      keystoreAlias: "your-key-alias", // Replace with actual alias
-      keystoreAliasPassword: "your-alias-password" // Replace with actual alias password
-    }
   }
 };
 
