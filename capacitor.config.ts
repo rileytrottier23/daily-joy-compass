@@ -17,6 +17,14 @@ const config: CapacitorConfig = {
       androidSplashResourceName: "splash",
       androidScaleType: "CENTER_CROP"
     }
+  },
+  android: {
+    buildOptions: {
+      keystorePath: null,
+      keystorePassword: null,
+      keystoreAlias: null,
+      keystoreAliasPassword: null
+    }
   }
 };
 
