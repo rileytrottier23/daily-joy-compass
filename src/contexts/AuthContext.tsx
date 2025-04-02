@@ -1,85 +1,77 @@
 
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import { User } from '../types';
+import { User, Session } from '@supabase/supabase-js';
+import { supabase } from '@/integrations/supabase/client';
 
 interface AuthContextType {
   user: User | null;
+  session: Session | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (email: string, password: string) => Promise<void>;
-  signup: (email: string, password: string) => Promise<void>;
-  logout: () => void;
+  login: (email: string, password: string) => Promise<{ error: any | null }>;
+  signup: (email: string, password: string) => Promise<{ error: any | null }>;
+  logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check for existing user in localStorage
-    const storedUser = localStorage.getItem('joyCompassUser');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-    setIsLoading(false);
+    // Set up auth state listener FIRST
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, currentSession) => {
+        setSession(currentSession);
+        setUser(currentSession?.user ?? null);
+        setIsLoading(false);
+      }
+    );
+
+    // THEN check for existing session
+    supabase.auth.getSession().then(({ data: { session: currentSession } }) => {
+      setSession(currentSession);
+      setUser(currentSession?.user ?? null);
+      setIsLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   const login = async (email: string, password: string) => {
-    // Simulate API call
-    setIsLoading(true);
     try {
-      // In a real app, this would be a call to your authentication API
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Simulate user data
-      const userData: User = {
-        id: `user_${Date.now()}`,
-        email,
-      };
-      
-      setUser(userData);
-      localStorage.setItem('joyCompassUser', JSON.stringify(userData));
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      return { error };
     } catch (error) {
       console.error('Login error:', error);
-      throw error;
-    } finally {
-      setIsLoading(false);
+      return { error };
     }
   };
 
   const signup = async (email: string, password: string) => {
-    // Simulate API call
-    setIsLoading(true);
     try {
-      // In a real app, this would be a call to your signup API
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Simulate user data
-      const userData: User = {
-        id: `user_${Date.now()}`,
-        email,
-      };
-      
-      setUser(userData);
-      localStorage.setItem('joyCompassUser', JSON.stringify(userData));
+      const { error } = await supabase.auth.signUp({ email, password });
+      return { error };
     } catch (error) {
       console.error('Signup error:', error);
-      throw error;
-    } finally {
-      setIsLoading(false);
+      return { error };
     }
   };
 
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem('joyCompassUser');
+  const logout = async () => {
+    try {
+      await supabase.auth.signOut();
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
   };
 
   return (
     <AuthContext.Provider value={{ 
       user, 
+      session,
       isAuthenticated: !!user, 
       isLoading,
       login,
