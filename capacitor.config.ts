@@ -2,7 +2,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'app.lovable.2e051887d6184af6b29b5fc1465cccc6',
+  appId: 'com.lovable.dailyjoycompass',
   appName: 'daily-joy-compass',
   webDir: 'dist',
   server: {
