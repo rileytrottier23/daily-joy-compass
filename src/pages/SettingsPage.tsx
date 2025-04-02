@@ -6,9 +6,7 @@ import { Button } from '@/components/ui/button';
 import { 
   LogOut, 
   User, 
-  Bell, 
-  Shield, 
-  HelpCircle 
+  Shield
 } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { useNavigate } from 'react-router-dom';
@@ -66,14 +64,6 @@ const SettingsPage: React.FC = () => {
                 <span className="text-gray-400">›</span>
               </div>
               
-              <div className="p-4 flex items-center justify-between">
-                <div className="flex items-center">
-                  <Bell className="h-5 w-5 mr-3 text-gray-500" />
-                  <span>Notifications</span>
-                </div>
-                <span className="text-gray-400">›</span>
-              </div>
-              
               <Sheet open={openPrivacySheet} onOpenChange={setOpenPrivacySheet}>
                 <SheetTrigger asChild>
                   <div className="p-4 flex items-center justify-between cursor-pointer hover:bg-gray-50">
@@ -88,22 +78,6 @@ const SettingsPage: React.FC = () => {
                   <PrivacySecurityPolicy />
                 </SheetContent>
               </Sheet>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow">
-            <div className="p-4 border-b">
-              <h3 className="font-semibold">Help & Support</h3>
-            </div>
-            
-            <div className="divide-y">
-              <div className="p-4 flex items-center justify-between">
-                <div className="flex items-center">
-                  <HelpCircle className="h-5 w-5 mr-3 text-gray-500" />
-                  <span>FAQ & Help Center</span>
-                </div>
-                <span className="text-gray-400">›</span>
-              </div>
             </div>
           </div>
 
