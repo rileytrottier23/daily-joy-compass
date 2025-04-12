@@ -46,6 +46,7 @@ const CalendarPage: React.FC = () => {
         title: "Entry cannot be empty",
         description: "Please write something about your day.",
         variant: "destructive",
+        className: "bg-white border-red-400 text-gray-800",
       });
       return;
     }
@@ -64,6 +65,7 @@ const CalendarPage: React.FC = () => {
       toast({
         title: "Entry created!",
         description: "Your journal entry has been saved.",
+        className: "bg-white border-green-400 text-gray-800",
       });
     } catch (error) {
       console.error('Error creating entry:', error);
@@ -71,6 +73,7 @@ const CalendarPage: React.FC = () => {
         title: "Failed to save",
         description: "Could not save your journal entry",
         variant: "destructive",
+        className: "bg-white border-red-400 text-gray-800",
       });
     }
   };
