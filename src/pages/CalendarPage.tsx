@@ -131,13 +131,13 @@ const CalendarPage: React.FC = () => {
                     Add new entry
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-md">
+                <DialogContent className="sm:max-w-md bg-white border-0 text-gray-800">
                   <DialogHeader>
-                    <DialogTitle>Create Entry for {format(selectedDate, 'MMMM d, yyyy')}</DialogTitle>
+                    <DialogTitle className="text-gray-800">Create Entry for {format(selectedDate, 'MMMM d, yyyy')}</DialogTitle>
                   </DialogHeader>
                   <div className="space-y-4 py-4">
                     <div className="space-y-2">
-                      <label htmlFor="content" className="block font-medium">
+                      <label htmlFor="content" className="block font-medium text-gray-800">
                         Journal Entry
                       </label>
                       <Textarea
@@ -145,7 +145,7 @@ const CalendarPage: React.FC = () => {
                         placeholder="Write about your day..."
                         value={newEntryContent}
                         onChange={(e) => setNewEntryContent(e.target.value)}
-                        className="min-h-[150px] p-3"
+                        className="min-h-[150px] p-3 bg-gray-50 text-gray-800"
                       />
                     </div>
 
