@@ -27,6 +27,7 @@ export default {
 				foreground: 'hsl(var(--foreground))',
 				primary: {
 					DEFAULT: '#E67E22', // Orange
+					dark: '#D35400', // Darker orange for hover states
 					foreground: 'hsl(var(--primary-foreground))'
 				},
 				secondary: {
