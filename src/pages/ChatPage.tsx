@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -6,7 +5,7 @@ import { Textarea } from '@/components/ui/textarea';
 import BottomNav from '@/components/BottomNav';
 import ChatMessage from '@/components/ChatMessage';
 import SuggestedPrompts from '@/components/SuggestedPrompts';
-import { useToast } from '@/components/ui/toast';
+import { useToast } from '@/hooks/use-toast';
 
 type Message = {
   id: string;
