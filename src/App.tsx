@@ -16,6 +16,7 @@ import DashboardPage from "./pages/DashboardPage";
 import SettingsPage from "./pages/SettingsPage";
 import EntryDetailPage from "./pages/EntryDetailPage";
 import EditEntryPage from "./pages/EditEntryPage";
+import ChatPage from "./pages/ChatPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -54,6 +55,14 @@ const App = () => (
                 element={
                   <ProtectedRoute>
                     <DashboardPage />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route 
+                path="/chat" 
+                element={
+                  <ProtectedRoute>
+                    <ChatPage />
                   </ProtectedRoute>
                 } 
               />

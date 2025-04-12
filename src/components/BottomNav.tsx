@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Calendar, BarChart2, Settings } from 'lucide-react';
+import { Home, Calendar, BarChart2, Settings, MessageCircle } from 'lucide-react';
 
 const BottomNav: React.FC = () => {
   const location = useLocation();
@@ -18,6 +18,10 @@ const BottomNav: React.FC = () => {
       <Link to="/calendar" className={`flex flex-col items-center justify-center ${isActive('/calendar') ? 'text-white' : 'text-white/70'}`}>
         <Calendar size={24} />
         <span className="text-xs mt-1">Calendar</span>
+      </Link>
+      <Link to="/chat" className={`flex flex-col items-center justify-center ${isActive('/chat') ? 'text-white' : 'text-white/70'}`}>
+        <MessageCircle size={24} />
+        <span className="text-xs mt-1">Chat</span>
       </Link>
       <Link to="/dashboard" className={`flex flex-col items-center justify-center ${isActive('/dashboard') ? 'text-white' : 'text-white/70'}`}>
         <BarChart2 size={24} />
