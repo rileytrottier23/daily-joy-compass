@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -6,6 +7,9 @@ import BottomNav from '@/components/BottomNav';
 import ChatMessage from '@/components/ChatMessage';
 import SuggestedPrompts from '@/components/SuggestedPrompts';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '../contexts/AuthContext';
+import { useJournal } from '../contexts/JournalContext';
 
 type Message = {
   id: string;
@@ -21,6 +25,8 @@ const ChatPage: React.FC = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const { entries } = useJournal();
+  const { user } = useAuth();
 
   // Initial welcome message
   useEffect(() => {
@@ -41,7 +47,7 @@ const ChatPage: React.FC = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (!input.trim()) return;
     
     // Add user message
@@ -56,18 +62,72 @@ const ChatPage: React.FC = () => {
     setInput('');
     setIsProcessing(true);
     
-    // Simulate AI response (will be replaced with actual API call)
-    setTimeout(() => {
+    try {
+      // Convert messages to OpenAI format
+      const lastMessages = messages.slice(-5).map(msg => ({
+        role: msg.sender === 'user' ? 'user' : 'assistant',
+        content: msg.content
+      }));
+      
+      // Add latest user message
+      lastMessages.push({
+        role: 'user',
+        content: input
+      });
+      
+      // If there are journal entries, add a brief summary to help the AI
+      let journalContext = '';
+      if (entries && entries.length > 0) {
+        const recentEntries = entries.slice(0, 3);
+        journalContext = `\n\nUser has ${entries.length} journal entries. Recent happiness ratings: ${
+          recentEntries.map(e => e.happinessRating).join(', ')
+        }. Recent topics: ${
+          recentEntries.map(e => e.content.substring(0, 30) + '...').join(' | ')
+        }`;
+        
+        // Add the journal context to the user's message
+        if (journalContext) {
+          lastMessages[lastMessages.length - 1].content += journalContext;
+        }
+      }
+      
+      // Call the edge function
+      const { data, error } = await supabase.functions.invoke('chat-with-ai', {
+        body: { messages: lastMessages }
+      });
+      
+      if (error) throw error;
+      
+      // Add AI response
       const aiResponse: Message = {
         id: (Date.now() + 1).toString(),
-        content: "I'm currently a placeholder response. Once connected to OpenAI, I'll provide insights based on your journal entries and happiness data!",
+        content: data.message,
         sender: 'ai',
         timestamp: new Date(),
       };
       
       setMessages(prev => [...prev, aiResponse]);
+    } catch (error) {
+      console.error("Error calling OpenAI:", error);
+      
+      // Add error message as AI response
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        content: "I'm sorry, I couldn't process your request. Please try again later.",
+        sender: 'ai',
+        timestamp: new Date(),
+      };
+      
+      setMessages(prev => [...prev, errorMessage]);
+      
+      toast({
+        title: "Error",
+        description: "Failed to get a response from the AI.",
+        variant: "destructive",
+      });
+    } finally {
       setIsProcessing(false);
-    }, 1500);
+    }
   };
 
   const handlePromptSelect = (prompt: string) => {
