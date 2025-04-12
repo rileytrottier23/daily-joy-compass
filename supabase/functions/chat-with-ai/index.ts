@@ -17,7 +17,10 @@ serve(async (req) => {
     const openAIApiKey = Deno.env.get('OPENAI_API_KEY');
     
     if (!openAIApiKey) {
-      throw new Error('OPENAI_API_KEY is not set');
+      return new Response(
+        JSON.stringify({ error: 'OpenAI API key is not configured' }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
     }
 
     const { messages } = await req.json();
@@ -45,6 +48,16 @@ serve(async (req) => {
 
     if (!response.ok) {
       const error = await response.json();
+      console.error('OpenAI API error:', error);
+      
+      // Check for rate limit or quota exceeded errors
+      if (error.error?.type === 'insufficient_quota' || error.error?.code === 'rate_limit_exceeded') {
+        return new Response(
+          JSON.stringify({ error: 'AI service is currently unavailable due to usage limits. Please try again later.' }),
+          { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+      
       throw new Error(error.error?.message || 'Failed to get response from OpenAI');
     }
 
@@ -58,7 +71,10 @@ serve(async (req) => {
   } catch (error) {
     console.error('Error in chat-with-ai function:', error);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ 
+        error: 'There was an issue processing your request. The AI service may be temporarily unavailable.',
+        details: error.message 
+      }),
       { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }

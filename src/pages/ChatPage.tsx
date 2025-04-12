@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Send, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import BottomNav from '@/components/BottomNav';
 import ChatMessage from '@/components/ChatMessage';
 import SuggestedPrompts from '@/components/SuggestedPrompts';
@@ -22,6 +23,7 @@ const ChatPage: React.FC = () => {
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [apiError, setApiError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -49,6 +51,9 @@ const ChatPage: React.FC = () => {
 
   const handleSendMessage = async () => {
     if (!input.trim()) return;
+    
+    // Clear any previous errors
+    setApiError(null);
     
     // Add user message
     const userMessage: Message = {
@@ -96,7 +101,15 @@ const ChatPage: React.FC = () => {
         body: { messages: lastMessages }
       });
       
-      if (error) throw error;
+      if (error) {
+        console.error("Supabase function error:", error);
+        throw new Error(error.message || "Failed to call AI service");
+      }
+      
+      if (data.error) {
+        console.error("AI service error:", data.error);
+        throw new Error(data.error);
+      }
       
       // Add AI response
       const aiResponse: Message = {
@@ -110,10 +123,17 @@ const ChatPage: React.FC = () => {
     } catch (error) {
       console.error("Error calling OpenAI:", error);
       
+      // Set the API error message
+      setApiError(
+        error.message.includes("quota") || error.message.includes("exceeded") 
+          ? "The AI service has reached its usage limit. Please try again later."
+          : "There was an issue connecting to the AI service. Please try again later."
+      );
+      
       // Add error message as AI response
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: "I'm sorry, I couldn't process your request. Please try again later.",
+        content: "I'm sorry, I couldn't process your request. The AI service may be temporarily unavailable.",
         sender: 'ai',
         timestamp: new Date(),
       };
@@ -121,8 +141,8 @@ const ChatPage: React.FC = () => {
       setMessages(prev => [...prev, errorMessage]);
       
       toast({
-        title: "Error",
-        description: "Failed to get a response from the AI.",
+        title: "AI Service Error",
+        description: "Failed to get a response from the AI service.",
         variant: "destructive",
       });
     } finally {
@@ -154,6 +174,9 @@ const ChatPage: React.FC = () => {
       },
     ]);
     
+    // Clear any errors
+    setApiError(null);
+    
     toast({
       title: "New conversation started",
       description: "Previous messages have been cleared.",
@@ -177,6 +200,17 @@ const ChatPage: React.FC = () => {
           <RefreshCw size={20} />
         </Button>
       </header>
+
+      {/* API Error Alert */}
+      {apiError && (
+        <Alert variant="destructive" className="mx-4 mt-4">
+          <AlertTitle>AI Service Unavailable</AlertTitle>
+          <AlertDescription>
+            {apiError} <br />
+            <span className="text-sm">You can still chat with the most recent responses or try again later.</span>
+          </AlertDescription>
+        </Alert>
+      )}
 
       {/* Messages Area */}
       <div className="flex-1 p-4 overflow-y-auto">
