@@ -6,8 +6,7 @@ const config: CapacitorConfig = {
   appName: 'daily-joy-compass',
   webDir: 'dist',
   server: {
-    url: "https://2e051887-d618-4af6-b29b-5fc1465cccc6.lovableproject.com?forceHideBadge=true",
-    cleartext: true
+    androidScheme: 'https'
   },
   plugins: {
     SplashScreen: {
