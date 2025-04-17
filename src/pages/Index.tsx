@@ -13,11 +13,8 @@ const Index = () => {
     );
   }
 
-  if (isAuthenticated) {
-    return <Navigate to="/" />;
-  } else {
-    return <Navigate to="/auth" />;
-  }
+  // Redirect to /home if authenticated or /auth if not
+  return isAuthenticated ? <Navigate to="/home" /> : <Navigate to="/auth" />;
 };
 
 export default Index;
