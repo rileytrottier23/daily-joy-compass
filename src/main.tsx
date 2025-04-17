@@ -44,4 +44,3 @@ if (Capacitor.isNativePlatform()) {
   // Initialize Capacitor plugins
   initializeCapacitor();
 }
-

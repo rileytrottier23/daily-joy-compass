@@ -18,6 +18,7 @@ import EntryDetailPage from "./pages/EntryDetailPage";
 import EditEntryPage from "./pages/EditEntryPage";
 import ChatPage from "./pages/ChatPage";
 import NotFound from "./pages/NotFound";
+import Index from "./pages/Index";
 
 const queryClient = new QueryClient();
 
@@ -33,9 +34,12 @@ const App = () => (
               {/* Public Routes */}
               <Route path="/auth" element={<AuthPage />} />
               
+              {/* Initial route check */}
+              <Route path="/" element={<Index />} />
+              
               {/* Protected Routes */}
               <Route 
-                path="/" 
+                path="/home" 
                 element={
                   <ProtectedRoute>
                     <HomePage />
