@@ -30,10 +30,24 @@ const AuthPage: React.FC = () => {
           <p className="text-gray-600 mt-2">Track your happiness journey one day at a time</p>
         </div>
 
-        <Tabs defaultValue="login" className="w-full" onValueChange={(value) => setActiveTab(value as 'login' | 'signup')}>
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="login">Sign In</TabsTrigger>
-            <TabsTrigger value="signup">Sign Up</TabsTrigger>
+        <Tabs 
+          defaultValue="login" 
+          className="w-full" 
+          onValueChange={(value) => setActiveTab(value as 'login' | 'signup')}
+        >
+          <TabsList className="grid w-full grid-cols-2 gap-2 bg-muted p-1">
+            <TabsTrigger 
+              value="login" 
+              className="data-[state=active]:bg-primary data-[state=active]:text-white rounded-lg"
+            >
+              Sign In
+            </TabsTrigger>
+            <TabsTrigger 
+              value="signup" 
+              className="data-[state=active]:bg-primary data-[state=active]:text-white rounded-lg"
+            >
+              Sign Up
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="login" className="mt-6">
             <AuthForm type="login" onSuccess={() => {}} />
@@ -49,6 +63,15 @@ const AuthPage: React.FC = () => {
           </TabsContent>
           <TabsContent value="signup" className="mt-6">
             <AuthForm type="signup" onSuccess={() => setActiveTab('login')} />
+            <div className="mt-4 text-center">
+              <Button 
+                variant="link" 
+                className="text-sm text-gray-600 hover:text-gray-900"
+                onClick={() => setIsPasswordRecoveryOpen(true)}
+              >
+                Forgot your password?
+              </Button>
+            </div>
           </TabsContent>
         </Tabs>
 
@@ -66,3 +89,4 @@ const AuthPage: React.FC = () => {
 };
 
 export default AuthPage;
+
