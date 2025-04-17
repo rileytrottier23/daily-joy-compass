@@ -57,7 +57,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ type, onSuccess }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 w-full mx-auto">
+    <form onSubmit={handleSubmit} className="space-y-6 w-full max-w-xl mx-auto">
       {error && (
         <Alert variant="destructive">
           <AlertCircle className="h-4 w-4" />
@@ -76,7 +76,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ type, onSuccess }) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className="w-full px-4 py-2 border rounded-lg"
+          className="w-full px-4 py-2 border rounded-lg text-base"
         />
       </div>
       
@@ -91,7 +91,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ type, onSuccess }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="w-full px-4 py-2 border rounded-lg"
+          className="w-full px-4 py-2 border rounded-lg text-base"
           minLength={6}
         />
         {type === 'signup' && (
@@ -104,7 +104,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ type, onSuccess }) => {
       <Button
         type="submit"
         disabled={isLoading}
-        className="primary-button w-full"
+        className="primary-button w-full py-3 text-base"
       >
         {isLoading ? 'Processing...' : type === 'login' ? 'Sign In' : 'Sign Up'}
       </Button>

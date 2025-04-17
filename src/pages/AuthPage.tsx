@@ -19,7 +19,7 @@ const AuthPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-muted">
-      <div className="w-full max-w-xl bg-white rounded-xl shadow-lg p-8 space-y-8">
+      <div className="w-full max-w-2xl bg-white rounded-xl shadow-lg p-8 space-y-8">
         <div className="text-center">
           <BookOpen 
             size={96} 

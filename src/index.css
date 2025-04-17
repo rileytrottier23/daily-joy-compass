@@ -27,12 +27,12 @@ body {
 }
 
 .page-container {
-  @apply max-w-6xl mx-auto w-full h-full px-4;
+  @apply max-w-7xl mx-auto w-full h-full px-4;
 }
 
 /* Main content container for all pages */
 .main-content {
-  @apply max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto w-full;
+  @apply max-w-3xl md:max-w-4xl lg:max-w-5xl mx-auto w-full;
 }
 
 /* Add typing indicator animation */
@@ -71,12 +71,12 @@ body {
 
 @media (min-width: 768px) {
   .auth-container {
-    max-width: 32rem; /* Wider auth container on larger screens */
+    max-width: 38rem; /* Wider auth container on larger screens */
   }
 }
 
 @media (min-width: 1024px) {
   .auth-container {
-    max-width: 36rem;
+    max-width: 42rem;
   }
 }
