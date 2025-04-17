@@ -7,9 +7,9 @@ const config: CapacitorConfig = {
   webDir: 'dist',
   server: {
     androidScheme: 'https',
-    // For development, uncomment this to enable live reload from your dev server
-    // url: 'http://YOUR-LOCAL-IP:5173',
-    // cleartext: true
+    // Enable this for local development to see live changes
+    url: 'http://YOUR_LOCAL_IP:5173', // Replace YOUR_LOCAL_IP with your actual local IP address
+    cleartext: true
   },
   plugins: {
     SplashScreen: {
