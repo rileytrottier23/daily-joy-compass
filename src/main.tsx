@@ -8,11 +8,12 @@ import { Capacitor } from '@capacitor/core';
 const rootElement = document.getElementById("root");
 if (rootElement) {
   createRoot(rootElement).render(<App />);
+  console.log("React application initialized");
 }
 
 // Check if running on a mobile device with Capacitor
 if (Capacitor.isNativePlatform()) {
-  // Import mobile-specific plugins
+  // Initialize Capacitor plugins
   const initializeCapacitor = async () => {
     try {
       // Try to load the SplashScreen plugin
