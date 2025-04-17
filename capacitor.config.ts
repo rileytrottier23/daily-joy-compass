@@ -6,7 +6,10 @@ const config: CapacitorConfig = {
   appName: 'daily-joy-compass',
   webDir: 'dist',
   server: {
-    androidScheme: 'https'
+    androidScheme: 'https',
+    // For development, uncomment this to enable live reload from your dev server
+    // url: 'http://YOUR-LOCAL-IP:5173',
+    // cleartext: true
   },
   plugins: {
     SplashScreen: {
@@ -16,21 +19,20 @@ const config: CapacitorConfig = {
       androidSplashResourceName: "splash",
       androidScaleType: "CENTER_CROP"
     }
-  }
-  // To configure signing for release builds, uncomment the section below
-  // and replace the values with your actual keystore information.
-  // For development and testing, you can leave this commented out and
-  // configure signing directly in Android Studio during the build process.
-  /*
+  },
+  // Android build configuration for release
   android: {
     buildOptions: {
-      keystorePath: "./my-release-key.keystore", // Path relative to your Android project or absolute path
-      keystorePassword: "your-keystore-password",
-      keystoreAlias: "your-key-alias",
-      keystoreAliasPassword: "your-alias-password"
+      keystorePath: "./my-release-key.keystore", // Path relative to your Android project
+      keystorePassword: "${KEYSTORE_PASSWORD}", // Use environment variable for security
+      keystoreAlias: "dailyjoycompass",
+      keystoreAliasPassword: "${ALIAS_PASSWORD}" // Use environment variable for security
     }
+  },
+  // iOS build configuration
+  ios: {
+    contentInset: "always"
   }
-  */
 };
 
 export default config;
