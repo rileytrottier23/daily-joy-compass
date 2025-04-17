@@ -29,9 +29,9 @@ if (Capacitor.isNativePlatform()) {
       // Try to load the StatusBar plugin
       if (Capacitor.getPlatform() === 'ios') {
         try {
-          const { StatusBar } = await import('@capacitor/status-bar');
-          // Style the status bar
-          StatusBar.setStyle({ style: 'dark' });
+          const { StatusBar, Style } = await import('@capacitor/status-bar');
+          // Style the status bar using the correct enum
+          StatusBar.setStyle({ style: Style.Dark });
         } catch (statusBarError) {
           console.warn('StatusBar plugin not available:', statusBarError);
         }
@@ -44,3 +44,4 @@ if (Capacitor.isNativePlatform()) {
   // Initialize Capacitor plugins
   initializeCapacitor();
 }
+
