@@ -3,11 +3,14 @@ import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import AuthForm from '../components/AuthForm';
+import PasswordRecovery from '../components/PasswordRecovery';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Button } from '@/components/ui/button';
 
 const AuthPage: React.FC = () => {
   const { isAuthenticated } = useAuth();
   const [activeTab, setActiveTab] = useState<'login' | 'signup'>('login');
+  const [isPasswordRecoveryOpen, setIsPasswordRecoveryOpen] = useState(false);
 
   if (isAuthenticated) {
     return <Navigate to="/" />;
@@ -33,6 +36,15 @@ const AuthPage: React.FC = () => {
           </TabsList>
           <TabsContent value="login" className="mt-6">
             <AuthForm type="login" onSuccess={() => {}} />
+            <div className="mt-4 text-center">
+              <Button 
+                variant="link" 
+                className="text-sm text-gray-600 hover:text-gray-900"
+                onClick={() => setIsPasswordRecoveryOpen(true)}
+              >
+                Forgot your password?
+              </Button>
+            </div>
           </TabsContent>
           <TabsContent value="signup" className="mt-6">
             <AuthForm type="signup" onSuccess={() => setActiveTab('login')} />
@@ -43,6 +55,11 @@ const AuthPage: React.FC = () => {
           <p>By continuing, you agree to our Terms of Service and Privacy Policy.</p>
         </div>
       </div>
+
+      <PasswordRecovery 
+        isOpen={isPasswordRecoveryOpen} 
+        onClose={() => setIsPasswordRecoveryOpen(false)} 
+      />
     </div>
   );
 };
