@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
+import { BookOpen } from 'lucide-react';
 import { Navigate } from 'react-router-dom';
-import { Book } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import AuthForm from '../components/AuthForm';
 import PasswordRecovery from '../components/PasswordRecovery';
@@ -21,7 +21,7 @@ const AuthPage: React.FC = () => {
     <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-muted">
       <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-6 space-y-8">
         <div className="text-center">
-          <Book 
+          <BookOpen 
             size={96} 
             className="mx-auto mb-4 text-primary" 
             strokeWidth={1.5}
