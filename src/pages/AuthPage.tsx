@@ -19,15 +19,15 @@ const AuthPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-muted">
-      <div className="w-full max-w-2xl bg-white rounded-xl shadow-lg p-8 space-y-8">
+      <div className="w-full max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-3xl bg-white rounded-xl shadow-lg p-6 sm:p-8 space-y-6">
         <div className="text-center">
           <BookOpen 
-            size={96} 
+            size={64} 
             className="mx-auto mb-4 text-primary" 
             strokeWidth={1.5}
           />
-          <h1 className="text-2xl font-bold text-gray-900">Daily Joy Compass</h1>
-          <p className="text-gray-600 mt-2">Track your happiness journey one day at a time</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Daily Joy Compass</h1>
+          <p className="text-sm sm:text-base text-gray-600 mt-2">Track your happiness journey one day at a time</p>
         </div>
 
         <Tabs 
@@ -49,24 +49,24 @@ const AuthPage: React.FC = () => {
               Sign Up
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="login" className="mt-6">
+          <TabsContent value="login" className="mt-4 sm:mt-6">
             <AuthForm type="login" onSuccess={() => {}} />
             <div className="mt-4 text-center">
               <Button 
                 variant="link" 
-                className="text-sm text-gray-600 hover:text-gray-900"
+                className="text-xs sm:text-sm text-gray-600 hover:text-gray-900"
                 onClick={() => setIsPasswordRecoveryOpen(true)}
               >
                 Forgot your password?
               </Button>
             </div>
           </TabsContent>
-          <TabsContent value="signup" className="mt-6">
+          <TabsContent value="signup" className="mt-4 sm:mt-6">
             <AuthForm type="signup" onSuccess={() => setActiveTab('login')} />
             <div className="mt-4 text-center">
               <Button 
                 variant="link" 
-                className="text-sm text-gray-600 hover:text-gray-900"
+                className="text-xs sm:text-sm text-gray-600 hover:text-gray-900"
                 onClick={() => setIsPasswordRecoveryOpen(true)}
               >
                 Forgot your password?
@@ -75,7 +75,7 @@ const AuthPage: React.FC = () => {
           </TabsContent>
         </Tabs>
 
-        <div className="text-center text-sm text-gray-600">
+        <div className="text-center text-xs sm:text-sm text-gray-600">
           <p>By continuing, you agree to our Terms of Service and Privacy Policy.</p>
         </div>
       </div>

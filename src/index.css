@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -33,6 +32,26 @@ body {
 /* Main content container for all pages */
 .main-content {
   @apply max-w-3xl md:max-w-4xl lg:max-w-5xl mx-auto w-full;
+}
+
+/* Mobile-friendly adjustments for auth container */
+@media (max-width: 640px) {
+  .auth-container {
+    max-width: 100%;
+    padding: 1rem;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .auth-container {
+    max-width: 36rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .auth-container {
+    max-width: 42rem;
+  }
 }
 
 /* Add typing indicator animation */
