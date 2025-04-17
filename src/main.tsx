@@ -15,17 +15,26 @@ if (Capacitor.isNativePlatform()) {
   // Import mobile-specific plugins
   const initializeCapacitor = async () => {
     try {
-      const { SplashScreen } = await import('@capacitor/splash-screen');
-      const { StatusBar } = await import('@capacitor/status-bar');
+      // Try to load the SplashScreen plugin
+      try {
+        const { SplashScreen } = await import('@capacitor/splash-screen');
+        // Hide the splash screen with a fade
+        SplashScreen.hide({
+          fadeOutDuration: 300
+        });
+      } catch (splashError) {
+        console.warn('SplashScreen plugin not available:', splashError);
+      }
       
-      // Hide the splash screen with a fade
-      SplashScreen.hide({
-        fadeOutDuration: 300
-      });
-      
-      // Style the status bar if on iOS
+      // Try to load the StatusBar plugin
       if (Capacitor.getPlatform() === 'ios') {
-        StatusBar.setStyle({ style: 'dark' });
+        try {
+          const { StatusBar } = await import('@capacitor/status-bar');
+          // Style the status bar
+          StatusBar.setStyle({ style: 'dark' });
+        } catch (statusBarError) {
+          console.warn('StatusBar plugin not available:', statusBarError);
+        }
       }
     } catch (error) {
       console.error('Error initializing Capacitor plugins:', error);
