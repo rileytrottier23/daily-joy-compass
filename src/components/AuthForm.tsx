@@ -57,7 +57,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ type, onSuccess }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 w-full max-w-sm">
+    <form onSubmit={handleSubmit} className="space-y-4 w-full mx-auto">
       {error && (
         <Alert variant="destructive">
           <AlertCircle className="h-4 w-4" />

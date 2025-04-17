@@ -93,7 +93,7 @@ const HomePage: React.FC = () => {
       </header>
 
       {/* Main Content */}
-      <main className="p-4 max-w-lg mx-auto">
+      <main className="p-4 main-content">
         <div className="mb-6">
           <h2 className="text-xl font-semibold">
             {format(new Date(), 'EEEE, MMMM d, yyyy')}

@@ -90,7 +90,7 @@ const CalendarPage: React.FC = () => {
       </header>
 
       {/* Main Content */}
-      <main className="p-4 max-w-lg mx-auto">
+      <main className="p-4 main-content">
         <JournalCalendar onSelectDate={handleDateSelect} />
 
         <div className="mt-6">

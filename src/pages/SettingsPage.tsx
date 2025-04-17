@@ -36,7 +36,7 @@ const SettingsPage: React.FC = () => {
       </header>
 
       {/* Main Content */}
-      <main className="p-4 max-w-lg mx-auto">
+      <main className="p-4 main-content">
         <div className="journal-card mb-6">
           <div className="flex items-center space-x-4">
             <div className="h-16 w-16 rounded-full bg-gray-300 flex items-center justify-center text-2xl font-bold">
