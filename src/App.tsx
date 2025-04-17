@@ -27,78 +27,80 @@ const App = () => (
     <AuthProvider>
       <JournalProvider>
         <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Routes>
-              {/* Public Routes */}
-              <Route path="/auth" element={<AuthPage />} />
-              
-              {/* Initial route check */}
-              <Route path="/" element={<Index />} />
-              
-              {/* Protected Routes */}
-              <Route 
-                path="/home" 
-                element={
-                  <ProtectedRoute>
-                    <HomePage />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/calendar" 
-                element={
-                  <ProtectedRoute>
-                    <CalendarPage />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/dashboard" 
-                element={
-                  <ProtectedRoute>
-                    <DashboardPage />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/chat" 
-                element={
-                  <ProtectedRoute>
-                    <ChatPage />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/settings" 
-                element={
-                  <ProtectedRoute>
-                    <SettingsPage />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/entry/:date" 
-                element={
-                  <ProtectedRoute>
-                    <EntryDetailPage />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/edit/:date" 
-                element={
-                  <ProtectedRoute>
-                    <EditEntryPage />
-                  </ProtectedRoute>
-                } 
-              />
-              
-              {/* Not Found Route */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
+          <div className="min-h-screen w-full">
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <Routes>
+                {/* Public Routes */}
+                <Route path="/auth" element={<AuthPage />} />
+                
+                {/* Initial route check */}
+                <Route path="/" element={<Index />} />
+                
+                {/* Protected Routes */}
+                <Route 
+                  path="/home" 
+                  element={
+                    <ProtectedRoute>
+                      <HomePage />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/calendar" 
+                  element={
+                    <ProtectedRoute>
+                      <CalendarPage />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/dashboard" 
+                  element={
+                    <ProtectedRoute>
+                      <DashboardPage />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/chat" 
+                  element={
+                    <ProtectedRoute>
+                      <ChatPage />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/settings" 
+                  element={
+                    <ProtectedRoute>
+                      <SettingsPage />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/entry/:date" 
+                  element={
+                    <ProtectedRoute>
+                      <EntryDetailPage />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/edit/:date" 
+                  element={
+                    <ProtectedRoute>
+                      <EditEntryPage />
+                    </ProtectedRoute>
+                  } 
+                />
+                
+                {/* Not Found Route */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
+          </div>
         </TooltipProvider>
       </JournalProvider>
     </AuthProvider>

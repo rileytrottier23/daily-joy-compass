@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,6 +7,10 @@ body {
   font-family: 'Inter', sans-serif;
   background-color: #f9f9f9;
   color: #333;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100%;
 }
 
 .primary-button {
@@ -14,6 +19,15 @@ body {
 
 .journal-card {
   @apply bg-white rounded-lg shadow-md p-4;
+}
+
+/* Container styles for better responsiveness */
+.container-fluid {
+  @apply w-full px-4 md:px-6 lg:px-8 xl:px-12 mx-auto;
+}
+
+.page-container {
+  @apply max-w-7xl mx-auto w-full h-full;
 }
 
 /* Add typing indicator animation */
